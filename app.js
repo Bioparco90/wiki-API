@@ -26,12 +26,17 @@ app.get("/articles", (req, res) => {
 });
 
 app.post("/articles", (req, res) => {
-  const user = req.body.username;
-  const pass = req.body.password;
-  console.log(req.body);
-  res.send(`User: ${user}\nPassword: ${pass}`);
+  const title = req.body.title;
+  const content = req.body.content;
+
+  const newArticle = new Article({
+    title: title,
+    content: content,
+  });
+
+  newArticle.save((err) => {
+    err ? res.send(err) : res.redirect('/articles');
+  });
 });
 
 app.listen(3000, () => console.log(`Server is running on port 3000`));
-
-// prova
