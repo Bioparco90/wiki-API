@@ -15,16 +15,16 @@ router.get("/", (req, res) => {
   Article.find((err, results) => {
     err ? res.send(err) : res.send(results);
   });
-});
+})
 
-router.get("/:articleName", (req, res) => {
+.get("/:articleName", (req, res) => {
   let article = req.params.articleName;
   Article.findOne({title: article}, (err, result) => {
     !result ? res.send("No match found") : res.send(result);
   });
-});
+})
 
-router.post("/", (req, res) => {
+.post("/", (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
 
@@ -36,9 +36,9 @@ router.post("/", (req, res) => {
   newArticle.save((err) => {
     err ? res.send(err) : res.redirect("/articles");
   });
-});
+})
 
-router.delete("/", (req, res) => {
+.delete("/", (req, res) => {
   Article.deleteMany({}, (err) => {
     err ? res.send(err) : res.redirect("/articles");
   });
