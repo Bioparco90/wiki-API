@@ -65,7 +65,7 @@ router
 
   .delete("/:articleName", (req, res) => {
     let article = req.params.articleName;
-    Article.deleteOne({title: article}, (err) => {
+    Article.deleteOne({ title: article }, (err) => {
       err ? res.send(err) : res.redirect("/articles");
     });
   });
