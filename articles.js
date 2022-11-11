@@ -43,13 +43,29 @@ router
       { title: article },
       { title: req.body.title, content: req.body.content },
       (err, result) => {
-        err ? res.send(err) : res.redirect("/articles");
+        // err ? res.send(err) : res.redirect("/articles");
+        err ? res.send(err) : res.send(result);
       }
     );
   })
 
+  .patch("/:articleName", (req, res) => {
+    let article = req.params.articleName;
+    Article.updateOne({ title: article }, { $set: req.body }, (err, result) => {
+      // err ? res.send(err) : res.redirect("/articles");
+      err ? res.send(err) : res.send(result);
+    });
+  })
+
   .delete("/", (req, res) => {
     Article.deleteMany({}, (err) => {
+      err ? res.send(err) : res.redirect("/articles");
+    });
+  })
+
+  .delete("/:articleName", (req, res) => {
+    let article = req.params.articleName;
+    Article.deleteOne({title: article}, (err) => {
       err ? res.send(err) : res.redirect("/articles");
     });
   });
