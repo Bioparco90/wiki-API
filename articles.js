@@ -37,6 +37,17 @@ router
     });
   })
 
+  .put("/:articleName", (req, res) => {
+    let article = req.params.articleName;
+    Article.replaceOne(
+      { title: article },
+      { title: req.body.title, content: req.body.content },
+      (err, result) => {
+        err ? res.send(err) : res.redirect("/articles");
+      }
+    );
+  })
+
   .delete("/", (req, res) => {
     Article.deleteMany({}, (err) => {
       err ? res.send(err) : res.redirect("/articles");
