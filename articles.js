@@ -9,9 +9,18 @@ const articleSchema = {
 
 const Article = mongoose.model("Article", articleSchema);
 
+// router.param('articleName', (req, res, next) => next());
+
 router.get("/", (req, res) => {
   Article.find((err, results) => {
     err ? res.send(err) : res.send(results);
+  });
+});
+
+router.get("/:articleName", (req, res) => {
+  let article = req.params.articleName;
+  Article.findOne({title: article}, (err, result) => {
+    !result ? res.send("No match found") : res.send(result);
   });
 });
 
