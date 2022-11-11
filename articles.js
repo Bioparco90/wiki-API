@@ -11,13 +11,7 @@ const Article = mongoose.model("Article", articleSchema);
 
 router.get("/", (req, res) => {
   Article.find((err, results) => {
-    if (err) {
-      console.log("Error in get articles");
-      res.send(err);
-    } else {
-      console.log("get articles OK");
-      res.send(results);
-    }
+    err ? res.send(err) : res.send(results);
   });
 });
 
